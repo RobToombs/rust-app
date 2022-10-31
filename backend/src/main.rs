@@ -1,5 +1,5 @@
 use actix_web::{App, HttpServer, web};
-use crate::endpoints::{echo, hello, manual_hello};
+use crate::endpoints::{AppState, echo, index, manual_hello};
 
 mod endpoints;
 
@@ -7,7 +7,10 @@ mod endpoints;
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .service(hello)
+            .app_data(web::Data::new(AppState {
+                app_name: String::from("Actix Web"),
+            }))
+            .service(index)
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
     })
