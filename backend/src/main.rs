@@ -1,22 +1,13 @@
-use std::io;
-
 fn main() {
-    let a = [1, 2, 3, 4, 5];
+    let mut counter = 0;
 
-    println!("Please enter an array index.");
+    let result = loop {
+        counter += 1;
 
-    let mut index = String::new();
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
 
-    io::stdin()
-        .read_line(&mut index)
-        .expect("Failed to read line");
-
-    let index: usize = index
-        .trim()
-        .parse()
-        .expect("Index entered was not a number");
-
-    let element = a[index];
-
-    println!("The value of the element at index {index} is: {element}");
+    println!("The result is {result}");
 }
